@@ -1,22 +1,29 @@
 import React from "react";
-import sampleData from "@/data/sample-data";
 import ProductCard from "./Product-card";
 
-export default function ProductList({
+export default async function ProductList({
   title,
   limit,
 }: {
   title: string;
   limit?: number;
 }) {
+  const parms = { limit: String(limit) };
+  const queryString = new URLSearchParams(parms).toString();
+  const productsJson = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/products?${queryString}`,
+    { method: "GET" }
+  );
+  const productsList = await productsJson.json();
+
   const limitedProducts = limit
-    ? sampleData.products.slice(0, limit)
-    : sampleData.products.slice(0, 4);
+    ? productsList.slice(0, limit)
+    : productsList.slice(0, 4);
 
   return (
     <div className="py-5">
       <h4 className="mb-3 text-2xl font-bold">{title}</h4>
-      {!sampleData.products.length && <div>No Products</div>}
+      {!productsList.length && <div>No Products</div>}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {limitedProducts.map((product) => (
           <ProductCard product={product} key={product.name} />

@@ -11,6 +11,7 @@ type productCardProps = {
     price: number;
     images: string[];
     stock: number;
+    rating: number;
   };
 };
 
@@ -33,7 +34,7 @@ export default function ProductCard({ product }: productCardProps) {
         <h5 className="text-lg font-bold mb-2">{product.name}</h5>
         <p className="text-gray-700 mb-4">{product.description}</p>
         <div className="flex items-center justify-between">
-          <div className="">3 Stars</div>
+          <div className="">{product.rating} Stars</div>
           {!!product.stock ? (
             <ProductPrice price={product.price} />
           ) : (

@@ -8,22 +8,29 @@ export default async function ProductList({
   title: string;
   limit?: number;
 }) {
-  const parms = { limit: String(limit) };
-  const queryString = new URLSearchParams(parms).toString();
-  const productsJson = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/products?${queryString}`,
-    { method: "GET" }
-  );
-  const productsList = await productsJson.json();
+  let limitedProducts = [];
+  try {
+    const parms = { limit: String(limit) };
+    const queryString = new URLSearchParams(parms).toString();
+    const productsJson = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/products?${queryString}`,
+      { method: "GET" }
+    );
+    const productsList = await productsJson.json();
 
-  const limitedProducts = limit
-    ? productsList.slice(0, limit)
-    : productsList.slice(0, 4);
+    limitedProducts = limit
+      ? productsList.slice(0, limit)
+      : productsList.slice(0, 4);
+  } catch (err) {
+    console.log("dddddddd", err);
+  }
 
   return (
     <div className="py-5">
       <h4 className="mb-3 text-2xl font-bold">{title}</h4>
-      {!productsList.length && <div>No Products</div>}
+
+      {!limitedProducts.length && <div>No Products</div>}
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {limitedProducts.map((product: product) => (
           <ProductCard product={product} key={product.name} />

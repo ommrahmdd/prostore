@@ -3,22 +3,25 @@ import Link from "next/link";
 import React from "react";
 import ProductPrice from "./Product-price";
 
+export type product = {
+  name: string;
+  brand: string;
+  description: string;
+  price: number;
+  images: string[];
+  stock: number;
+  rating: number;
+  slug: string;
+};
+
 type productCardProps = {
-  product: {
-    name: string;
-    brand: string;
-    description: string;
-    price: number;
-    images: string[];
-    stock: number;
-    rating: number;
-  };
+  product: product;
 };
 
 export default function ProductCard({ product }: productCardProps) {
   return (
     <Link
-      href={"/"}
+      href={`/product/${product.slug}`}
       className="flex flex-col border p-4 rounded shadow-sm transition-all ease-in-out duration-200 hover:translate-y-1 hover:shadow-lg"
     >
       <Image

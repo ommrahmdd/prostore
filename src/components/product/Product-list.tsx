@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "./Product-card";
+import ProductCard, { product } from "./Product-card";
 
 export default async function ProductList({
   title,
@@ -25,7 +25,7 @@ export default async function ProductList({
       <h4 className="mb-3 text-2xl font-bold">{title}</h4>
       {!productsList.length && <div>No Products</div>}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {limitedProducts.map((product) => (
+        {limitedProducts.map((product: product) => (
           <ProductCard product={product} key={product.name} />
         ))}
       </div>

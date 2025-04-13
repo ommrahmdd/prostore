@@ -22,7 +22,7 @@ export default async function ProductList({
       ? productsList.slice(0, limit)
       : productsList.slice(0, 4);
   } catch (err) {
-    console.log("dddddddd", err);
+    console.log("Error", err);
   }
 
   return (

@@ -14,6 +14,7 @@ export default function ProductImages({ images }: { images: string[] }) {
         alt="product image"
         width={1000}
         height={1000}
+        loading="lazy"
       />
       <div className="flex items-center gap-2">
         {images?.map((image, index) => (
@@ -26,7 +27,13 @@ export default function ProductImages({ images }: { images: string[] }) {
             role="button"
             onClick={() => setCurrentImage(index)}
           >
-            <Image src={image} alt="product image" width={100} height={100} />
+            <Image
+              src={image}
+              alt="product image"
+              width={100}
+              height={100}
+              loading="lazy"
+            />
           </div>
         ))}
       </div>
